@@ -6,13 +6,21 @@ const chai = chaiModule.use(chaiHttp);
 
 const should = chai.should(); // Определяем should
 
+const ser = chai.request.execute(server)
 describe('Server', () => {
   it('should return status 200 on / GET', (done) => {
-    chai.request.execute(server) // Здесь работает chai.request
-      .get('/') // Здесь также добавьте маршрут, если он есть
-      .end((err, res) => {
-        res.should.have.status(200);
-        done();
-      })
+
+    ser.get('/')
+    .end((err, res) => {
+      res.should.have.status(200);
+      done();
+    })
+
   });
+  
+  after(() => ser.close(err=>{
+    console.log('ser close')
+    process.exit(err ? 1 : 0);
+  }));
+
 });
