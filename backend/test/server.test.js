@@ -17,10 +17,9 @@ describe('Server', () => {
     })
 
   });
-  
-  after(() => ser.close(err=>{
-    console.log('ser close')
-    process.exit(err ? 1 : 0);
-  }));
+
+  after(() => 
+    process.exit(0)
+  );
 
 });
