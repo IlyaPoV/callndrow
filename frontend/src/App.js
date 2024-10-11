@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux'; // Импортируем Provider
-import HomePage from './pages/HomePage';
-import ChatRoom from './pages/ChatRoom';
+import HomePage from './pages/HomePage/HomePage';
+import ChatRoom from './pages/ChatRoom/ChatRoom';
 import store from './store/store'; // Импортируем store
 
 const App = () => {
