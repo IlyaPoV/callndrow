@@ -22,11 +22,19 @@ export const handleSocketConnection = (io) => {
         // Событие получения сообщения
         socket.on('chat message', async (msg) => {
           const { message, username, roomId } = msg;
-          await new Message({ username, message, roomId: roomId }).save()
-
-          io.to(roomId).emit('chat message', { message, username, roomId });
+          
+          // Создаём сообщение с временной меткой
+          const savedMessage = await new Message({ username, message, roomId }).save();
+        
+          // Передаем сообщение с временной меткой обратно клиентам
+          io.to(roomId).emit('chat message', { 
+            message, 
+            username, 
+            roomId, 
+            timestamp: savedMessage.timestamp  // Добавляем timestamp в передаваемое сообщение
+          });
         });
-
+        
       
         socket.on('disconnect', () => {
           console.log('Client disconnected');
