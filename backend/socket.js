@@ -20,14 +20,11 @@ export const handleSocketConnection = (io) => {
         });
       
         // Событие получения сообщения
-        socket.on('chat message', (msg) => {
-        const { message, username, roomId } = msg;
-        const newMessage = new Message({ username, message, room: roomId });
+        socket.on('chat message', async (msg) => {
+          const { message, username, roomId } = msg;
+          await new Message({ username, message, roomId: roomId }).save()
 
-        newMessage.save().then(() => {
-            // Отправляем новое сообщение всем в комнате
-            io.to(roomId).emit('chat message', { message, username, roomId });
-        });
+          io.to(roomId).emit('chat message', { message, username, roomId });
         });
 
       
