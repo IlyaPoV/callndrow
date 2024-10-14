@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import useChatSocket from '../../hooks/useChatSocket';
 import Chat from '../../components/Chat/Chat';
-import {saveToLocalStorage, saveUsernameToLocalStorage} from '../../utils/localStorageUtils';
+import {saveRoomNameToLocalStorage, saveUsernameToLocalStorage} from '../../utils/localStorageUtils';
 import './ChatRoom.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { setRoomName, setUsername } from '../../store/socketSlice'; // Импортируем action для установки username
@@ -22,6 +22,7 @@ const ChatRoom = () => {
       const response = await axios.get(`/api/room/name/${roomId}`); // Запрос на сервер
       const { roomName } = response.data;
       dispatch(setRoomName(roomName)); // Сохраняем имя комнаты в Redux
+      saveRoomNameToLocalStorage(roomName);
     } catch (error) {
       console.error("Error fetching room name:", error);
     }

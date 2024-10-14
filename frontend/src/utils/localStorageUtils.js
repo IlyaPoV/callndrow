@@ -21,7 +21,17 @@ export const saveUsernameToLocalStorage = (newUsername) => {
       updatedUsernames.push(newUsername);
       localStorage.setItem('usernames', JSON.stringify(updatedUsernames));
     }
-  };
+};
+
+export const saveRoomNameToLocalStorage = (newRoomName) => {
+    const storedRoomNames = JSON.parse(localStorage.getItem('roomNames')) || [];
+    let updatedRoomNames = [...storedRoomNames];
+    if (!updatedRoomNames.includes(newRoomName)) {
+        updatedRoomNames.push(newRoomName);
+        localStorage.setItem('roomNames', JSON.stringify(updatedRoomNames));
+    }
+};
+
 
 export const getFromLocalStorage = (key) => {
     return JSON.parse(localStorage.getItem(key)) || [];
