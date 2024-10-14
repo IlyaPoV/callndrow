@@ -4,6 +4,7 @@ import { Server } from 'socket.io';
 import { connectDatabase } from './database.js'; // Подключение базы данных
 import { handleSocketConnection } from './socket.js'; // Логика работы с сокетами
 import cors from 'cors'; // Импортируем cors
+import RoomRouter from './router/room.js';
 
 const app = express();
 const server = http.createServer(app);
@@ -28,6 +29,7 @@ connectDatabase();
 // Обрабатываем подключения через Socket.io
 handleSocketConnection(io);
 
+app.use('/api/room', RoomRouter);
 // Маршрут для проверки работы сервера
 app.get('/', (req, res) => {
   res.status(200).send('Welcome to the chat server!');

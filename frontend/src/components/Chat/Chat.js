@@ -52,6 +52,15 @@ const Chat = ({ messages, sendMessage, isConnected, currentUser }) => {
             </React.Fragment>
         ));
     };
+
+
+    const handleSendClick = (e) => {
+        e.preventDefault();
+        if (localMessage.trim()) {
+            sendMessage(localMessage);  // Отправляем сообщение при клике на кнопку "Send"
+            setLocalMessage('');  // Очищаем текстовое поле после отправки
+        }
+    };
     
     return (
         <div style={styles.chatContainer}>
@@ -77,7 +86,7 @@ const Chat = ({ messages, sendMessage, isConnected, currentUser }) => {
                     );
                 })}
             </div>
-            <form onSubmit={(e) => e.preventDefault()} style={styles.form}>
+            <form onSubmit={handleSendClick} style={styles.form}>
                 <textarea
                     rows="3"
                     value={localMessage}

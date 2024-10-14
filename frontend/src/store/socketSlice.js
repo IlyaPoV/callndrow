@@ -5,6 +5,7 @@ const socketSlice = createSlice({
   initialState: {
     isConnected: false,
     roomId: null,
+    roomName: null,
     username: null,
   },
   reducers: {
@@ -17,6 +18,9 @@ const socketSlice = createSlice({
     setUsername: (state, action) => {
       state.username = action.payload;
     },
+    setRoomName: (state, action) => {
+      state.roomName = action.payload;
+    },
     clearConnection: (state) => {
       state.isConnected = false;
       state.roomId = null;
@@ -25,5 +29,5 @@ const socketSlice = createSlice({
   },
 });
 
-export const { setConnectionStatus, setRoomId, setUsername, clearConnection } = socketSlice.actions;
+export const { setConnectionStatus, setRoomId, setRoomName, setUsername, clearConnection } = socketSlice.actions;
 export default socketSlice.reducer;
